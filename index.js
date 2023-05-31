@@ -23,6 +23,9 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 app.use("/", (req, res) => {
   res.send('welcome to the server')
 })
+
+app.get("/users", userRoutes.getUsers);
+
 app.listen(process.env.PORT || 5000, () => {
   console.log('backend running')
 })

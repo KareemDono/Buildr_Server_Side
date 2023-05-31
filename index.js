@@ -1,5 +1,6 @@
 const express = require("express");
 const { MongoClient } = require("mongodb");
+const cors = require("cors");
 const userRoutes = require("./routes/userRoute");
 const userTypeRoutes = require("./routes/userTypeRoute");
 const productRoutes = require("./routes/productRoute");
@@ -15,21 +16,17 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.edr434m.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use("/", (req, res) => {
-  res.send('welcome to the server')
-})
-
-app.listen(process.env.PORT || 5000, () => {
-  console.log('backend running')
-})
+  res.send('Welcome to the server');
+});
 
 //users
-app.use("/users", userRoutes)
+app.use("/users", userRoutes);
 app.get("/users", userRoutes.getUsers);
 app.post("/users", userRoutes.createUser);
 app.get("/users/:id", userRoutes.getUserById);
@@ -100,8 +97,6 @@ app.get("/computer-type/:id", computerTypeRoutes.getComputerTypeById);
 app.put("/computer-type/:id", computerTypeRoutes.updateComputerType);
 app.delete("/computer-type/:id", computerTypeRoutes.deleteComputerType);
 
-
-
 const startServer = async () => {
   try {
     // Connect to MongoDB
@@ -109,7 +104,7 @@ const startServer = async () => {
     console.log("Connected to MongoDB");
 
     // Start the server
-    const port = 3000;
+    const port = process.env.PORT || 5000;
     app.listen(port, () => {
       console.log(`Server started on port ${port}`);
     });

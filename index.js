@@ -21,10 +21,6 @@ app.use(cors());
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.edr434m.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.use("/", (req, res) => {
-  res.send('Welcome to the server');
-});
-
 //users
 app.use("/users", userRoutes);
 app.get("/users", userRoutes.getUsers);
@@ -96,6 +92,10 @@ app.post("/computer-type", computerTypeRoutes.createComputerType);
 app.get("/computer-type/:id", computerTypeRoutes.getComputerTypeById);
 app.put("/computer-type/:id", computerTypeRoutes.updateComputerType);
 app.delete("/computer-type/:id", computerTypeRoutes.deleteComputerType);
+
+app.use("/", (req, res) => {
+  res.send('Welcome to the server');
+});
 
 const startServer = async () => {
   try {

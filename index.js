@@ -29,6 +29,7 @@ app.listen(process.env.PORT || 5000, () => {
 })
 
 //users
+app.use("/users", userRoutes)
 app.get("/users", userRoutes.getUsers);
 app.post("/users", userRoutes.createUser);
 app.get("/users/:id", userRoutes.getUserById);

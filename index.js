@@ -20,6 +20,13 @@ app.use(express.json());
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.edr434m.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
+app.use("/", (req, res) => {
+  res.send('welcome')
+})
+app.listen(process.env.PORT || 5000, () => {
+  console.log('backend running')
+})
+
 //users
 app.use("/users", userRoutes);
 app.get("/users", userRoutes.getUsers);

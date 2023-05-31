@@ -5,11 +5,12 @@ const Joi = require('joi');
 const uri = "mongodb+srv://admin:admin@cluster0.edr434m.mongodb.net/Buildr?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
+
 const validateUser = (userData) => {
   const schema = Joi.object({
     Id: Joi.number(),
     first_name: Joi.string().max(20).required(),
-    last_name: Joi.string().max(20).required(),
+    last_name: Joi.string().max(50).required(),
     username: Joi.string().max(15).required(),
     email: Joi.string().email().max(60).required(),
     phone_number: Joi.number().required(),
@@ -18,7 +19,6 @@ const validateUser = (userData) => {
     password: Joi.string().max(25).required(),
     user_type: Joi.string().max(5)
   }); 
-
   const validationResult = schema.validate(userData);
   if (validationResult.error) {
     throw new Error("Invalid user data");

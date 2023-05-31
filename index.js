@@ -21,7 +21,7 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use("/", (req, res) => {
-  res.send('welcome')
+  res.send('welcome to the server')
 })
 app.listen(process.env.PORT || 5000, () => {
   console.log('backend running')
